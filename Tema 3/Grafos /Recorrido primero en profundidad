@@ -1,0 +1,78 @@
+----------------------------Que es -----------------------------------------------------
+Recorrido Primero en Profundidad (DFS):
+El recorrido primero en profundidad es un algoritmo de búsqueda que comienza en un nodo raíz y explora cada una de sus ramas lo más profundamente posible antes de retroceder.
+En cada paso, el algoritmo selecciona uno de los nodos adyacentes sin visitar y realiza una llamada recursiva para explorar ese nodo.
+Cuando un nodo no tiene más nodos adyacentes por explorar, el algoritmo retrocede al nodo anterior y continúa la exploración desde allí.
+El recorrido DFS se implementa comúnmente utilizando una pila (o recursión) para rastrear los nodos visitados y por visitar.
+------------------------Implemtacion En java---------------------------------------------------------
+import java.util.*;
+
+public class Main {
+    private static class Grafo {
+        private int V; // Número de vértices
+        private LinkedList<Integer>[] listaAdy; // Lista de adyacencia
+
+        // Constructor
+        public Grafo(int V) {
+            this.V = V;
+            listaAdy = new LinkedList[V];
+            for (int i = 0; i < V; ++i) {
+                listaAdy[i] = new LinkedList<>();
+            }
+        }
+
+        // Agregar una arista de v a w
+        public void agregarArista(int v, int w) {
+            listaAdy[v].add(w);
+        }
+
+        // Función recursiva para el recorrido DFS
+        private void DFSUtil(int v, boolean[] visitado) {
+            // Marcar el vértice actual como visitado y imprimirlo
+            visitado[v] = true;
+            System.out.print(v + " ");
+
+            // Recorrer todos los vértices adyacentes al vértice actual
+            Iterator<Integer> it = listaAdy[v].iterator();
+            while (it.hasNext()) {
+                int n = it.next();
+                if (!visitado[n]) {
+                    DFSUtil(n, visitado);
+                }
+            }
+        }
+
+        // Función principal para realizar el recorrido DFS
+        public void DFS(int v) {
+            // Arreglo para marcar los vértices visitados
+            boolean[] visitado = new boolean[V];
+
+            // Llamar a la función recursiva para DFS
+            DFSUtil(v, visitado);
+        }
+    }
+
+    // Método main para probar la implementación
+    public static void main(String[] args) {
+        // Crear un grafo con 5 vértices
+        Grafo grafo = new Grafo(5);
+        // Agregar algunas aristas al grafo
+        grafo.agregarArista(0, 1);
+        grafo.agregarArista(0, 4);
+        grafo.agregarArista(1, 2);
+        grafo.agregarArista(1, 3);
+        grafo.agregarArista(1, 4);
+        grafo.agregarArista(3, 2);
+        grafo.agregarArista(3, 4);
+
+        // Realizar el recorrido DFS comenzando desde el vértice 0
+        System.out.println("Recorrido DFS del grafo comenzando desde el vértice 0:");
+        grafo.DFS(0);
+    }
+}
+--------------------------------resultados---------------------------------------------------
+Recorrido DFS del grafo comenzando desde el vértice 0:
+0 1 2 3 4 
+
+...Program finished with exit code 0
+Press ENTER to exit console.
