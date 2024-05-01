@@ -1,0 +1,101 @@
+----------------algoritmo-------------------------------
+
+El algoritmo de Kruskal es una técnica utilizada en teoría de grafos para encontrar un árbol de expansión mínima en un grafo ponderado y conexo. Aquí tienes una descripción simplificada del algoritmo y su implementación en Java:
+
+Algoritmo de Kruskal:
+
+Descripción: Encuentra un árbol de expansión mínima en un grafo ponderado y conexo.
+Pasos:
+Ordenar las aristas: Se ordenan las aristas por peso de menor a mayor.
+Inicializar un bosque: Se inicializa un bosque donde cada vértice es un componente conectado.
+Iterar sobre las aristas: Se recorren las aristas ordenadas.
+Se toma la arista más liviana.
+Se verifica si agregarla al bosque forma un ciclo.
+Si no forma un ciclo, se agrega al árbol de expansión mínima.
+Si forma un ciclo, se descarta.
+Unir los componentes: Se unen los componentes del bosque cuando se agrega una arista al árbol.
+Terminar: Se termina cuando se han considerado todas las aristas o no quedan componentes disjuntos en el bosque.
+-------------------implentacion en java------------------------------------------------
+import java.util.*;
+
+class Main {
+    static class Arista implements Comparable<Arista> {
+        int origen, destino, peso;
+
+        public Arista(int origen, int destino, int peso) {
+            this.origen = origen;
+            this.destino = destino;
+            this.peso = peso;
+        }
+
+        @Override
+        public int compareTo(Arista otra) {
+            return this.peso - otra.peso;
+        }
+    }
+
+    public static void main(String[] args) {
+        int V = 5; // Número de vértices
+        List<Arista> aristas = new ArrayList<>(); // Lista de aristas del grafo
+
+        // Agregar algunas aristas al grafo de ejemplo
+        aristas.add(new Arista(0, 1, 1));
+        aristas.add(new Arista(0, 2, 3));
+        aristas.add(new Arista(0, 3, 4));
+        aristas.add(new Arista(1, 2, 2));
+        aristas.add(new Arista(1, 4, 5));
+        aristas.add(new Arista(2, 3, 1));
+        aristas.add(new Arista(2, 4, 6));
+        aristas.add(new Arista(3, 4, 3));
+
+        // Aplicar el algoritmo de Kruskal
+        List<Arista> arbolExpMinima = kruskal(V, aristas);
+
+        // Mostrar el árbol de expansión mínima
+        System.out.println("Árbol de expansión mínima:");
+        for (Arista arista : arbolExpMinima) {
+            System.out.println(arista.origen + " - " + arista.destino + " : " + arista.peso);
+        }
+    }
+
+    static List<Arista> kruskal(int V, List<Arista> aristas) {
+        List<Arista> arbolExpMinima = new ArrayList<>();
+        Collections.sort(aristas);
+        int[] parent = new int[V];
+        for (int i = 0; i < V; i++) {
+            parent[i] = i;
+        }
+        int numAristasIncluidas = 0;
+
+        for (Arista arista : aristas) {
+            int origenPadre = encontrarPadre(arista.origen, parent);
+            int destinoPadre = encontrarPadre(arista.destino, parent);
+            if (origenPadre != destinoPadre) {
+                arbolExpMinima.add(arista);
+                numAristasIncluidas++;
+                parent[origenPadre] = destinoPadre;
+                if (numAristasIncluidas == V - 1)
+                    break;
+            }
+        }
+        return arbolExpMinima;
+    }
+
+    static int encontrarPadre(int vertice, int[] parent) {
+        if (parent[vertice] != vertice) {
+            parent[vertice] = encontrarPadre(parent[vertice], parent);
+        }
+        return parent[vertice];
+    }
+}
+
+------------------------resultado -------------------------------------------------
+Árbol de expansión mínima:
+0 - 1 : 1
+2 - 3 : 1
+1 - 2 : 2
+3 - 4 : 3
+
+
+...Program finished with exit code 0
+Press ENTER to exit console.
