@@ -1,0 +1,69 @@
+Dentro de este codio se puede ver el recorrido en preoreden 
+------------------------------------------Ejemplo 2-----------------------------------------------------------
+class Nodo {
+    int valor;
+    Nodo izquierdo, derecho;
+
+    public Nodo(int item) {
+        valor = item;
+        izquierdo = derecho = null;
+    }
+}
+
+public class ArbolBinario {
+    Nodo raiz;
+
+    public ArbolBinario() {
+        raiz = null;
+    }
+
+    // Método para insertar un valor en el árbol
+    public void insertar(int valor) {
+        raiz = insertarRec(raiz, valor);
+    }
+
+    private Nodo insertarRec(Nodo nodo, int valor) {
+        if (nodo == null) {
+            nodo = new Nodo(valor);
+            return nodo;
+        }
+
+        if (valor < nodo.valor) {
+            nodo.izquierdo = insertarRec(nodo.izquierdo, valor);
+        } else if (valor > nodo.valor) {
+            nodo.derecho = insertarRec(nodo.derecho, valor);
+        }
+
+        return nodo;
+    }
+
+    // Método para recorrer el árbol en preorden
+    public void preorden(Nodo nodo) {
+        if (nodo != null) {
+            System.out.print(nodo.valor + " ");
+            preorden(nodo.izquierdo);
+            preorden(nodo.derecho);
+        }
+    }
+
+    public static void main(String[] args) {
+        ArbolBinario arbol = new ArbolBinario();
+        int[] numeros = {50, 30, 70, 20, 40, 60, 80, 10, 25, 35, 45, 55, 65, 75, 85, 15, 5, 90, 95, 100, 28, 33, 38, 42, 52, 58, 63, 68, 78, 83};
+
+        // Insertar los números predefinidos en el árbol
+        for (int num : numeros) {
+            arbol.insertar(num);
+        }
+
+        // Mostrar el árbol en preorden (esto ordenará los números)
+        System.out.println("Recorrido preorden (ordenados):");
+        arbol.preorden(arbol.raiz);
+    }
+}
+
+
+------------------------------------------resultado-----------------------------------------------------------
+
+run:
+Recorrido preorden (ordenados):
+50 30 20 10 5 15 25 28 40 35 33 38 45 42 70 60 55 52 58 65 63 68 80 75 78 85 83 90 95 100 BUILD SUCCESSFUL (total time: 0 seconds
