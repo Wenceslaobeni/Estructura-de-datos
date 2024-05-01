@@ -26,6 +26,6 @@
 - [Recorrido primero en profundidad ](https://github.com/Wenceslaobeni/Estructura-de-datos/blob/03e0232586309e2549bdc4da0818fd30482536f8/Tema%203/Grafos%20/Recorrido%20primero%20en%20profundidad)
 - [Recorrido primero en amplitud](https://github.com/Wenceslaobeni/Estructura-de-datos/blob/e35b21a4ed090bc38bfaec6434aa7702ef1188a8/Tema%203/Grafos%20/Recorrido%20primero%20en%20amplitud)
 - [ El algoritmo de Kruskal](https://github.com/Wenceslaobeni/Estructura-de-datos/blob/cfdbcbb1b9761521b64f52577159fe4517b12ae7/Tema%203/Grafos%20/El%20algoritmo%20de%20Kruskal)
- - [Búsquedas de caminos](https://github.com/Wenceslaobeni/Estructura-de-datos/blob/58ee0a21e529a032507b3b6914c5f19a26de5ebe/Tema%203/Grafos%20/B%C3%BAsquedas%20de%20caminos.)
-   - [ Algoritmo de Dijkstra]()
+- [Búsquedas de caminos](https://github.com/Wenceslaobeni/Estructura-de-datos/blob/58ee0a21e529a032507b3b6914c5f19a26de5ebe/Tema%203/Grafos%20/B%C3%BAsquedas%20de%20caminos.)
+ - [ Algoritmo de Dijkstra]()
 
