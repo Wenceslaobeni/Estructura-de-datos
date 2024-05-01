@@ -1,0 +1,10 @@
+
+Los árboles binarios son estructuras de datos en informática que constan de nodos, donde cada nodo tiene como máximo dos hijos, denominados "izquierdo" y "derecho". 
+Estos árboles se utilizan ampliamente en informática para organizar y almacenar datos de manera jerárquica, permitiendo búsquedas eficientes, inserciones y eliminaciones.
+
+En un árbol binario, el nodo superior se llama "raíz", y cada nodo puede tener hasta dos nodos secundarios, denominados "hijos". Los nodos que no tienen hijos se llaman "hojas".
+La profundidad de un árbol binario se define como la longitud del camino más largo desde la raíz hasta una hoja.
+
+Los árboles binarios pueden ser de diferentes tipos, como árboles binarios de búsqueda (BST), donde cada nodo tiene un valor único y los valores de los nodos en el subárbol 
+izquierdo son menores que el valor del nodo padre, mientras que los valores en el subárbol derecho son mayores. También hay árboles binarios completos, árboles binarios perfectos,
+árboles binarios balanceados, entre otros. Cada tipo de árbol binario tiene propiedades y aplicaciones específicas en informática.
