@@ -1,0 +1,137 @@
+----------->Transformación de la expresión de infija a postfijaz<-------------------
+La conversión de una expresión infija a postfija implica reorganizar la expresión de modo que los operadores se coloquen después de 
+sus operandos correspondientes. Puedes utilizar el algoritmo de la notación polaca inversa (postfija) para lograr esto.
+Pasos generales para convertir una expresión infija a postfija:
+1.Crea una pila para mantener los operadores temporales y el resultado final.
+2.Recorre la expresión infija de izquierda a derecha.
+3.Si encuentras un operando (número), agrégalo directamente al resultado final.
+4. Si encuentras un operador, compara su prioridad con el operador en la parte superior de la pila:
+*Si la prioridad del operador actual es mayor o igual que la prioridad del operador en la parte superior de la pila, agrégalo a la pila.
+*Si la prioridad del operador actual es menor que la prioridad del operador en la parte superior de la pila, saca los operadores de la pila 
+y agrégalos al resultado final hasta que encuentres un operador de menor prioridad o hasta que la pila esté vacía. Luego, agrega el 
+operador actual a la pila.
+5.Si encuentras un paréntesis izquierdo, agrégalo a la pila.
+6.Si encuentras un paréntesis derecho, saca los operadores de la pila y agrégalos al resultado final hasta que encuentres el paréntesis
+izquierdo correspondiente. No incluyas el paréntesis izquierdo ni el derecho en el resultado final.
+
+Al finalizar la exploración de la expresión, vacía cualquier operador restante en la pila y agrégalo al resultado final
+-------------------------------------------------------------------------------------------------------------------------------------------
+import java.util.Scanner;
+import java.util.Stack;
+
+public class InfixToPostfixConverter {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Ingresa una expresión infija:");
+        String infixExpression = scanner.nextLine();
+
+        String postfixExpression = convertToPostfix(infixExpression);
+        System.out.println("Expresión infija: " + infixExpression);
+        System.out.println("Expresión postfija: " + postfixExpression);
+
+        double result = evaluatePostfix(postfixExpression);
+        System.out.println("Resultado de la expresión: " + result);
+
+        scanner.close();
+    }
+
+    public static String convertToPostfix(String infixExpression) {
+        if (!parenthesesBalanced(infixExpression)) {
+            throw new IllegalArgumentException("Los paréntesis no están balanceados.");
+        }
+
+        StringBuilder postfix = new StringBuilder();
+        Stack<Character> operatorStack = new Stack<>();
+
+        java.util.Map<Character, Integer> precedence = new java.util.HashMap<>();
+        precedence.put('+', 1);
+        precedence.put('-', 1);
+        precedence.put('*', 2);
+        precedence.put('/', 2);
+        precedence.put('^', 3);
+
+        for (char c : infixExpression.toCharArray()) {
+            if (Character.isDigit(c)) {
+                postfix.append(c);
+            } else if (c == '(') {
+                operatorStack.push(c);
+            } else if (c == ')') {
+                while (!operatorStack.isEmpty() && operatorStack.peek() != '(') {
+                    postfix.append(operatorStack.pop());
+                }
+                if (!operatorStack.isEmpty() && operatorStack.peek() == '(') {
+                    operatorStack.pop();
+                } else {
+                    throw new IllegalArgumentException("Los paréntesis no están balanceados.");
+                }
+            } else {
+                while (!operatorStack.isEmpty() && precedence.getOrDefault(c, 0) <= precedence.getOrDefault(operatorStack.peek(), 0)) {
+                    postfix.append(operatorStack.pop());
+                }
+                operatorStack.push(c);
+            }
+        }
+
+        while (!operatorStack.isEmpty()) {
+            postfix.append(operatorStack.pop());
+        }
+
+        return postfix.toString();
+    }
+
+    private static double evaluatePostfix(String postfixExpression) {
+        Stack<Double> operandStack = new Stack<>();
+
+        for (char c : postfixExpression.toCharArray()) {
+            if (Character.isDigit(c)) {
+                operandStack.push((double)(c - '0'));
+            } else {
+                double operand2 = operandStack.pop();
+                double operand1 = operandStack.pop();
+                double result;
+                switch (c) {
+                    case '+':
+                        result = operand1 + operand2;
+                        break;
+                    case '-':
+                        result = operand1 - operand2;
+                        break;
+                    case '*':
+                        result = operand1 * operand2;
+                        break;
+                    case '/':
+                        result = operand1 / operand2;
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Operador inválido: " + c);
+                }
+                operandStack.push(result);
+            }
+        }
+
+        return operandStack.pop();
+    }
+
+    private static boolean parenthesesBalanced(String expression) {
+        int count = 0;
+        for (char c : expression.toCharArray()) {
+            if (c == '(') {
+                count++;
+            } else if (c == ')') {
+                count--;
+                if (count < 0) {
+                    return false;
+                }
+            }
+        }
+        return count == 0;
+    }
+}
+-------------------------------------Resultado--------------------------------------------------------------
+Ingresa una expresión infija:
+(5+2)+(6/2)
+Expresión infija: (5+2)+(6/2)
+Expresión postfija: 52+62/+
+Resultado de la expresión: 10.0
+
