@@ -1,0 +1,19 @@
+
+Pathfinding algorithms in graphs are used to discover routes between nodes within a graph. 
+A graph is simply a collection of nodes (also called vertices) connected by edges (also called edges).
+These searches are fundamental in many fields, including computer science, logistics, route planning, and more. 
+There are various algorithms for finding paths in a graph, each with its own strengths and weaknesses depending on the type of graph and the specific problem being tackled. 
+Some of the most common algorithms include:
+1.Depth-First Search (DFS): This algorithm explores as far as possible along each branch before backtracking.
+It's like exploring a maze by going as deep as you can down one path before trying another.
+DFS is useful for finding all reachable nodes from a given starting point and for detecting loops in a graph.
+2.Breadth-First Search (BFS): Unlike DFS, BFS explores the graph level by level, starting from a given starting node.
+It's like pouring water into a container and watching it spread out evenly. 
+BFS is useful for finding the shortest path between two nodes in an unweighted graph and for finding the minimum spanning tree in a weighted graph.
+3.Dijkstra's Algorithm: This algorithm finds the shortest path from a starting node to all other nodes in a graph with non-negative edge weights.
+It's like finding the shortest route between two points on a map, considering only roads with positive lengths.
+Dijkstra's Algorithm is efficient for dense graphs and is ideal for finding optimal routes in transportation networks or computer network routing.
+
+4.Bellman-Ford Algorithm: Similar to Dijkstra's Algorithm, but it can handle graphs with negative edge weights and detect negative weight cycles.
+It's like finding the shortest route between two points on a map, even if some roads have negative lengths.
+Bellman-Ford Algorithm is less efficient than Dijkstra's Algorithm for dense graphs but is more versatile due to its ability to handle negative weights.
