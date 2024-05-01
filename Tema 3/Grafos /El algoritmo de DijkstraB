@@ -1,0 +1,117 @@
+---------------El algoritmo de Dijkstra-----------------
+El algoritmo de Dijkstra es un algoritmo utilizado comúnmente en la teoría de grafos y en la ciencia de la computación para encontrar el camino más corto entre un nodo origen 
+y todos los demás nodos en un grafo ponderado no dirigido o dirigido, donde los pesos representan la distancia entre los nodos.
+La idea principal detrás del algoritmo de Dijkstra es mantener una lista de nodos cuyas distancias desde el nodo origen se han determinado de manera definitiva y un conjunto 
+de nodos que aún no se han procesado. En cada paso, el algoritmo elige el nodo con la distancia más corta desde el origen que aún no ha sido procesado y actualiza las distancias 
+de los nodos adyacentes a este nodo seleccionado si es posible mejorar su distancia actual.
+El algoritmo continúa iterando hasta que todos los nodos hayan sido procesados, momento en el que se habrá encontrado la distancia más corta desde el nodo origen a todos los 
+demás nodos en el grafo.
+----------------------------------------------------------------------------
+
+-----------Algoritmo de Dijkstra------------------
+grafo:
+  nodo1:
+    nodo_destino: nodo2
+    peso: 7
+    otro_nodo_destino: nodo3
+    otro_peso: 9
+  nodo2:
+    nodo_destino: nodo1
+    peso: 7
+    otro_nodo_destino: nodo3
+    otro_peso: 10
+  nodo3:
+    nodo_destino: nodo1
+    peso: 9
+    otro_nodo_destino: nodo2
+    otro_peso: 10
+
+nodo_inicial: nodo1
+
+distancias:
+  nodo1: 0
+  nodo2: Infinity
+  nodo3: Infinity
+
+cola_prioridad:
+  - nodo1
+  - nodo2
+  - nodo3
+-----------------------------------------------------------------
+
+---------Implementación codigo de Dijkstra-----------------------
+import java.util.Arrays;
+
+public class DijkstraAlgorithm {
+
+    private static final int VERTICES = 6;
+
+    private int minDistance(int dist[], Boolean visited[]) {
+        int min = Integer.MAX_VALUE, minIndex = -1;
+
+        for (int v = 0; v < VERTICES; v++) {
+            if (!visited[v] && dist[v] <= min) {
+                min = dist[v];
+                minIndex = v;
+            }
+        }
+
+        return minIndex;
+    }
+
+    private void printSolution(int dist[]) {
+        System.out.println("Distancias mínimas desde el nodo inicial:");
+        for (int i = 0; i < VERTICES; i++) {
+            System.out.println(i + ": " + dist[i]);
+        }
+    }
+
+    public void dijkstra(int graph[][], int src) {
+        int dist[] = new int[VERTICES];
+        Boolean visited[] = new Boolean[VERTICES];
+
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        Arrays.fill(visited, false);
+
+        dist[src] = 0;
+
+        for (int count = 0; count < VERTICES - 1; count++) {
+            int u = minDistance(dist, visited);
+            visited[u] = true;
+
+            for (int v = 0; v < VERTICES; v++) {
+                if (!visited[v] && graph[u][v] != 0 && dist[u] != Integer.MAX_VALUE &&
+                        dist[u] + graph[u][v] < dist[v]) {
+                    dist[v] = dist[u] + graph[u][v];
+                }
+            }
+        }
+
+        printSolution(dist);
+    }
+
+    public static void main(String[] args) {
+        int graph[][] = new int[][]{
+                {0, 4, 0, 0, 0, 0},
+                {4, 0, 8, 0, 0, 0},
+                {0, 8, 0, 7, 0, 4},
+                {0, 0, 7, 0, 9, 14},
+                {0, 0, 0, 9, 0, 10},
+                {0, 0, 4, 14, 10, 0}
+        };
+
+        DijkstraAlgorithm dijkstra = new DijkstraAlgorithm();
+        dijkstra.dijkstra(graph, 0);
+    }
+}
+------------------------------------------------------------------------
+
+--------------Salida en pantalla-------------------
+Distancias mínimas desde el nodo inicial:
+0: 0
+1: 4
+2: 12
+3: 19
+4: 26
+5: 16
+-
