@@ -1,0 +1,76 @@
+
+----------------------Algoritmo-----------------------------------------------
+Definición de la Clase Grafo:
+Se define una clase interna estática llamada Grafo que representa la estructura del grafo.
+La clase Grafo tiene dos atributos:
+numVertices: Un entero que representa el número de vértices en el grafo.
+adj: Un array de listas de adyacencia (implementadas como ArrayList) que representa las conexiones entre los vértices.
+La clase Grafo tiene los siguientes métodos:
+Grafo(int numVertices): Constructor para inicializar el grafo con un número dado de vértices.
+agregarArista(int origen, int destino): Método para agregar una arista entre dos vértices dados.
+imprimirGrafo(): Método para imprimir la representación del grafo como listas de adyacencia.
+Método main:
+El método main crea un objeto Grafo con 4 vértices.
+Agrega algunas aristas al grafo usando el método agregarArista.
+Finalmente, llama al método imprimirGrafo para imprimir la representación del grafo.
+
+----------------------tda-----------------------------------------------
+import java.util.ArrayList;
+
+public class Main {
+    // Clase Grafo
+    static class Grafo {
+        // Atributos
+        private int numVertices;                // Número de vértices en el grafo
+        private ArrayList<Integer>[] adj;      // Matriz de listas enlazadas para representar las aristas del grafo
+
+        // Constructor para inicializar el grafo con un número dado de vértices
+        public Grafo(int numVertices) {
+            this.numVertices = numVertices;
+            // Inicialización de la matriz de listas enlazadas para las listas de adyacencia de cada vértice
+            adj = new ArrayList[numVertices];
+            for (int i = 0; i < numVertices; ++i)
+                adj[i] = new ArrayList<>();
+        }
+
+        // Método para agregar una arista entre dos vértices dados
+        public void agregarArista(int origen, int destino) {
+            adj[origen].add(destino);
+        }
+
+        // Método para imprimir la representación del grafo como listas de adyacencia
+        public void imprimirGrafo() {
+            for (int i = 0; i < numVertices; ++i) {
+                System.out.println("Lista de adyacencia del vértice " + i);
+                System.out.print("head");
+                for (Integer nodo : adj[i]) {
+                    System.out.print(" -> " + nodo);
+                }
+                System.out.println("\n");
+            }
+        }
+    }
+
+    // Método main para probar la implementación
+    public static void main(String args[]) {
+        // Creación de un objeto Grafo con 4 vértices
+        Grafo grafo = new Grafo(4);
+        // Agregamos algunas aristas al grafo
+        grafo.agregarArista(0, 1);
+        grafo.agregarArista(0, 2);
+        grafo.agregarArista(1, 2);
+        grafo.agregarArista(2, 0);
+        grafo.agregarArista(2, 3);
+        grafo.agregarArista(3, 3);
+
+        // Imprimimos la representación del grafo
+        grafo.imprimirGrafo();
+    }
+}
+-----------------------------resultado--------------------------------------
+Lista de adyacencia del vértice 2
+head -> 0 -> 3
+
+Lista de adyacencia del vértice 3
+head -> 3
+
