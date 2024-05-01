@@ -1,0 +1,106 @@
+El código Java proporcionado establece una estructura de árbol binario para verificar la correcta correspondencia de paréntesis en una expresión matemática.
+Utiliza dos clases principales: Nodo, que representa los nodos individuales del árbol binario, y ArbolBinario, que representa el árbol en sí. 
+El método verificarParentesis analiza la expresión matemática, construyendo el árbol al tratar cada paréntesis de apertura '(' como un nuevo nodo. Luego, verifica si los paréntesis
+de cierre ')' se emparejan correctamente con los de apertura. 
+Si el árbol resultante es válido y todas las aperturas tienen cierres correspondientes, la correspondencia de paréntesis se considera correcta.
+------------------------------------------Ejemplo 1-----------------------------------------------------------
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package arbolbinario;
+
+/**
+ *
+ * @author benit
+ */
+import java.util.Stack;
+public class ArbolBinario {
+    Nodo raiz;
+
+    public ArbolBinario() {
+        raiz = null;
+    }
+
+    // Método para verificar la correspondencia de paréntesis en una expresión
+    public boolean verificarParentesis(String expresion) {
+        Stack<Nodo> pila = new Stack<>();
+
+        for (int i = 0; i < expresion.length(); i++) {
+            char caracter = expresion.charAt(i);
+            Nodo nodo = new Nodo(caracter);
+
+            if (caracter == '(') {
+                if (pila.isEmpty()) {
+                    raiz = nodo;
+                } else {
+                    Nodo padre = pila.peek();
+                    if (padre.izquierdo == null) {
+                        padre.izquierdo = nodo;
+                    } else {
+                        padre.derecho = nodo;
+                    }
+                }
+                pila.push(nodo);
+            } else if (caracter == ')') {
+                if (pila.isEmpty() || pila.pop().valor != '(') {
+                    return false;
+                }
+            }
+        }
+
+        return pila.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        ArbolBinario arbol = new ArbolBinario();
+        String expresion = "(a+(b*c))";
+
+        // Verificar la correspondencia de paréntesis y construir el árbol
+        boolean correcto = arbol.verificarParentesis(expresion);
+        System.out.println("Correspondencia de paréntesis: " + (correcto ? "Correcta" : "Incorrecta"));
+
+        // Mostrar la estructura del árbol
+        System.out.println("Estructura del árbol:");
+        arbol.mostrarArbol(arbol.raiz);
+    }
+
+    // Método para mostrar la estructura del árbol
+    public void mostrarArbol(Nodo nodo) {
+        if (nodo != null) {
+            System.out.print(nodo.valor + " ");
+            mostrarArbol(nodo.izquierdo);
+            mostrarArbol(nodo.derecho);
+        }
+    }
+}
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package arbolbinario;
+
+/**
+ *
+ * @author benit
+ */
+
+
+class Nodo {
+    char valor;
+    Nodo izquierdo, derecho;
+
+    public Nodo(char item) {
+        valor = item;
+        izquierdo = derecho = null;
+    }
+}
+------------------------------------------resultado-----------------------------------------------------------
+run:
+Correspondencia de paréntesis: Correcta
+
+( ( BUILD SUCCESSFUL (total time: 0 seconds)
