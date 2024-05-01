@@ -1,0 +1,60 @@
+-----------IMPLEMENTACIÓN EN JAVA-------------------
+public class Main {
+    Nodo raiz;
+
+    public ArbolBinario() {
+        raiz = null;
+    }
+
+    // Método para recorrido preorden (raíz, izquierda, derecha)
+    public void preorden(Nodo nodo) {
+        if (nodo != null) {
+            System.out.print(nodo.valor + " ");
+            preorden(nodo.izquierdo);
+            preorden(nodo.derecho);
+        }
+    }
+
+    // Método para recorrido inorden (izquierda, raíz, derecha)
+    public void inorden(Nodo nodo) {
+        if (nodo != null) {
+            inorden(nodo.izquierdo);
+            System.out.print(nodo.valor + " ");
+            inorden(nodo.derecho);
+        }
+    }
+
+    // Método para recorrido postorden (izquierda, derecha, raíz)
+    public void postorden(Nodo nodo) {
+        if (nodo != null) {
+            postorden(nodo.izquierdo);
+            postorden(nodo.derecho);
+            System.out.print(nodo.valor + " ");
+        }
+    }
+
+    public static void main(String[] args) {
+        ArbolBinario arbol = new ArbolBinario();
+        arbol.raiz = new Nodo(1);
+        arbol.raiz.izquierdo = new Nodo(2);
+        arbol.raiz.derecho = new Nodo(3);
+        arbol.raiz.izquierdo.izquierdo = new Nodo(4);
+        arbol.raiz.izquierdo.derecho = new Nodo(5);
+
+        System.out.println("Recorrido Preorden:");
+        arbol.preorden(arbol.raiz);
+        System.out.println("\nRecorrido Inorden:");
+        arbol.inorden(arbol.raiz);
+        System.out.println("\nRecorrido Postorden:");
+        arbol.postorden(arbol.raiz);
+    }
+}
+----------resultado---------------------------------------------------
+
+run:
+Recorrido Preorden:
+1 2 4 5 3 
+Recorrido Inorden:
+4 2 5 1 3 
+Recorrido Postorden:
+4 5 2 3 1 BUILD SUCCESSFUL (total time: 0 seconds)
