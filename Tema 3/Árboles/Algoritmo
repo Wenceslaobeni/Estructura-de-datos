@@ -1,0 +1,21 @@
+Algoritmo 
+--------------------------------------------------------------------------
+Definición de la clase Nodo:
+La clase Nodo tiene tres propiedades: valor, izquierdo y derecho.
+El constructor de la clase Nodo inicializa el valor del nodo y sus hijos izquierdo y derecho como null.
+Definición de la clase ArbolBinario:
+La clase ArbolBinario tiene una propiedad raiz que apunta al nodo raíz del árbol.
+El constructor de la clase ArbolBinario inicializa la raíz como null.
+Método de recorrido preorden:
+La función preorden recibe un nodo como argumento.
+Si el nodo no es nulo, imprime su valor y luego llama recursivamente a preorden para el hijo izquierdo y el hijo derecho en ese orden.
+Método de recorrido inorden:
+La función inorden recibe un nodo como argumento.
+Si el nodo no es nulo, llama recursivamente a inorden para el hijo izquierdo, imprime su valor y luego llama recursivamente a inorden para el hijo derecho.
+Método de recorrido postorden:
+La función postorden recibe un nodo como argumento.
+Si el nodo no es nulo, llama recursivamente a postorden para el hijo izquierdo y el hijo derecho en ese orden, y luego imprime su valor.
+Método principal (main):
+En el método main, se crea una instancia de la clase ArbolBinario.
+Se inicializa la raíz del árbol y se crean nodos para los hijos izquierdo y derecho de la raíz.
+Se llaman a los métodos de recorrido preorden, inorden y postorden para mostrar el contenido del árbol.
