@@ -1,0 +1,69 @@
+
+Dentro de este codio se puede ver el recorrido en inorden
+------------------------------------------Ejemplo 3-----------------------------------------------------------
+
+class Nodo {
+    int valor;
+    Nodo izquierdo, derecho;
+
+    public Nodo(int item) {
+        valor = item;
+        izquierdo = derecho = null;
+    }
+}
+
+public class ArbolBinario {
+    Nodo raiz;
+
+    public ArbolBinario() {
+        raiz = null;
+    }
+
+    // Método para insertar un valor en el árbol
+    public void insertar(int valor) {
+        raiz = insertarRec(raiz, valor);
+    }
+
+    private Nodo insertarRec(Nodo nodo, int valor) {
+        if (nodo == null) {
+            nodo = new Nodo(valor);
+            return nodo;
+        }
+
+        if (valor < nodo.valor) {
+            nodo.izquierdo = insertarRec(nodo.izquierdo, valor);
+        } else if (valor > nodo.valor) {
+            nodo.derecho = insertarRec(nodo.derecho, valor);
+        }
+
+        return nodo;
+    }
+
+    // Método para recorrer el árbol en inorden
+    public void inorden(Nodo nodo) {
+        if (nodo != null) {
+            inorden(nodo.izquierdo);
+            System.out.print(nodo.valor + " ");
+            inorden(nodo.derecho);
+        }
+    }
+
+    public static void main(String[] args) {
+        ArbolBinario arbol = new ArbolBinario();
+        int[] numeros = {50, 30, 70, 20, 40, 60, 80, 10, 25, 35, 45, 55, 65, 75, 85, 15, 5, 90, 95, 100, 28, 33, 38, 42, 52, 58, 63, 68, 78, 83};
+
+        // Insertar los números predefinidos en el árbol
+        for (int num : numeros) {
+            arbol.insertar(num);
+        }
+
+        // Mostrar el árbol en inorden (esto ordenará los números)
+        System.out.println("Recorrido inorden (ordenados):");
+        arbol.inorden(arbol.raiz);
+    }
+}
+
+------------------------------------------resultado-----------------------------------------------------------
+run:
+Recorrido inorden (ordenados):
+5 10 15 20 25 28 30 33 35 38 40 42 45 50 52 55 58 60 63 65 68 70 75 78 80 83 85 90 95 100
