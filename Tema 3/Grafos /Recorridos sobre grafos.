@@ -1,0 +1,123 @@
+-----------------Recorridos sobre grafos--------------
+Un recorrido sobre un grafo es un proceso para visitar todos los vértices alcanzables a partir de un nodo dado. 
+Se parte de un nodo y se visitan los vértices del grafo de manera ordenada y sistemática, moviéndose por las aristas.
+---------------------------------------------------------------------------------------------------------------------
+
+---------->Recorrido primero en profundidad<----------
+ El recorrido primero en profundidad (DFS, por sus siglas en inglés, Depth-First Search) y el recorrido primero en amplitud (BFS, Breadth-First Search).
+-DFS es un algoritmo que se utiliza para recorrer o buscar en estructuras de datos de tipo grafo o árbol.
+-El algoritmo comienza desde un nodo inicial y luego explora tanto hacia adelante como hacia abajo en la jerarquía de nodos lo más lejos posible antes de retroceder.
+-Utiliza una pila para realizar el recorrido. Comienza con el nodo inicial y, a medida que visita los nodos adyacentes, los agrega a la pila y los marca como visitados.
+-Cuando llega a un nodo que no tiene nodos adyacentes no visitados, retrocede y retira nodos de la pila hasta que encuentre un nodo con nodos adyacentes no visitados.
+-DFS puede utilizarse para buscar caminos, determinar si hay ciclos, encontrar componentes conectados, entre otras tareas.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------->Recorrido primero en amplitud<----------
+-BFS es otro algoritmo de búsqueda utilizado en estructuras de datos de tipo grafo o árbol.
+-Comienza desde un nodo inicial y explora todos los nodos vecinos a una profundidad dada antes de pasar a los nodos de la siguiente profundidad.
+-Utiliza una cola para realizar el recorrido. Comienza con el nodo inicial y, a medida que visita los nodos adyacentes, los agrega a la cola y los marca como visitados.
+-A diferencia de DFS, BFS sigue el principio "primero en entrar, primero en salir", lo que significa que explora todos los nodos vecinos antes de moverse a los nodos del siguiente nivel.
+-BFS se utiliza comúnmente para encontrar el camino más corto entre dos nodos, verificar la conectividad entre nodos y la búsqueda en árboles o grafos por capas.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------Implementación de codigo de ejemplo de Recorrido primero en profundidad y Recorrido primero en amplitud---------------------------
+-----------Clase Graph------------
+import java.util.*;
+
+class Graph {
+    private int V; // Número de vértices
+    private LinkedList<Integer> adj[]; // Lista de adyacencia
+
+    // Constructor
+    Graph(int v) {
+        V = v;
+        adj = new LinkedList[v];
+        for (int i = 0; i < v; ++i)
+            adj[i] = new LinkedList();
+    }
+
+    // Función para agregar una arista al grafo
+    void addEdge(int v, int w) {
+        adj[v].add(w); // Agrega w a la lista de v
+    }
+
+    // Función de DFS recursiva
+    void DFSUtil(int v, boolean visited[]) {
+        // Marcar el nodo actual como visitado
+        visited[v] = true;
+        System.out.print(v + " ");
+
+        // Recorrer todos los vértices adyacentes al nodo actual
+        Iterator<Integer> i = adj[v].listIterator();
+        while (i.hasNext()) {
+            int n = i.next();
+            if (!visited[n])
+                DFSUtil(n, visited); // Si el vértice no está visitado, realizar DFS
+        }
+    }
+
+    // Función de DFS iniciadora
+    void DFS(int v) {
+        boolean visited[] = new boolean[V]; // Array para marcar los nodos visitados
+        DFSUtil(v, visited); // Llama a la función recursiva DFS
+    }
+
+    // Función de BFS
+    void BFS(int s) {
+        // Array para marcar los nodos visitados
+        boolean visited[] = new boolean[V];
+
+        // Cola para BFS
+        LinkedList<Integer> queue = new LinkedList<Integer>();
+
+        // Marcar el nodo actual como visitado y agregarlo a la cola
+        visited[s] = true;
+        queue.add(s);
+
+        while (queue.size() != 0) {
+            // Sacar un vértice de la cola e imprimirlo
+            s = queue.poll();
+            System.out.print(s + " ");
+
+            // Recorrer todos los vértices adyacentes del vértice sacado de la cola
+            Iterator<Integer> i = adj[s].listIterator();
+            while (i.hasNext()) {
+                int n = i.next();
+                // Si el vértice adyacente no ha sido visitado, marcarlo como visitado y agregarlo a la cola
+                if (!visited[n]) {
+                    visited[n] = true;
+                    queue.add(n);
+                }
+            }
+        }
+    }
+}
+--------------------------------------------------------------------------------------------------------------------
+
+----------------Clase Main--------------------------
+class Main {
+    public static void main(String args[]) {
+        Graph g = new Graph(4);
+
+        // Agregar aristas al grafo
+        g.addEdge(0, 1);
+        g.addEdge(0, 2);
+        g.addEdge(1, 2);
+        g.addEdge(2, 0);
+        g.addEdge(2, 3);
+        g.addEdge(3, 3);
+
+        System.out.println("Recorrido DFS empezando desde el vértice 2:");
+        g.DFS(2);
+        System.out.println("\nRecorrido BFS empezando desde el vértice 2:");
+        g.BFS(2);
+    }
+}
+----------------------------------------------------------------------------------------
+
+----------------Salida en pantalla---------------------
+Recorrido DFS empezando desde el vértice 2:
+2 0 1 3 
+Recorrido BFS empezando desde el vértice 2:
+2 0 3 1
+--------------------
