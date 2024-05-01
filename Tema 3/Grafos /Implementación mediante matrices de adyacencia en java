@@ -1,0 +1,63 @@
+----------------------------Implementación mediante matrices de adyacencia en java  -------------------------------------------------
+import java.util.Arrays;
+
+public class Main {
+    private static class Grafo {
+        private int V; // NÃºmero de vÃ©rtices
+        private boolean[][] matrizAdy; // Matriz de adyacencia
+
+        // Constructor
+        public Grafo(int V) {
+            this.V = V;
+            matrizAdy = new boolean[V][V];
+        }
+
+        // Agregar una arista de v a w
+        public void agregarArista(int v, int w) {
+            matrizAdy[v][w] = true;
+        }
+
+        // Imprimir el grafo
+        public void imprimirGrafo() {
+            for (int i = 0; i < V; ++i) {
+                System.out.print("Nodos adyacentes al nodo " + i + ": ");
+                for (int j = 0; j < V; ++j) {
+                    if (matrizAdy[i][j]) {
+                        System.out.print(j + " ");
+                    }
+                }
+                System.out.println();
+            }
+        }
+    }
+
+    // MÃ©todo main para probar la implementaciÃ³n
+    public static void main(String[] args) {
+        // Crear un grafo con 5 vÃ©rtices
+        Grafo grafo = new Grafo(5);
+        // Agregar algunas aristas al grafo
+        grafo.agregarArista(0, 1);
+        grafo.agregarArista(0, 4);
+        grafo.agregarArista(1, 2);
+        grafo.agregarArista(1, 3);
+        grafo.agregarArista(1, 4);
+        grafo.agregarArista(3, 2);
+        grafo.agregarArista(3, 4);
+
+        // Imprimir el grafo
+        System.out.println("Matriz de adyacencia del grafo:");
+        grafo.imprimirGrafo();
+    }
+}
+
+-------------------------------Resultado ---------------------------------------------
+Matriz de adyacencia del grafo:
+Nodos adyacentes al nodo 0: 1 4 
+Nodos adyacentes al nodo 1: 2 3 4 
+Nodos adyacentes al nodo 2: 
+Nodos adyacentes al nodo 3: 2 4 
+Nodos adyacentes al nodo 4: 
+
+
+...Program finished with exit code 0
+Press ENTER to exit console.
