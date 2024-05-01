@@ -1,0 +1,84 @@
+------------------------que es-------------------------------------
+Recorrido Primero en Amplitud (BFS):
+El recorrido primero en amplitud es un algoritmo de búsqueda que comienza en un nodo raíz y explora todos los nodos vecinos a la misma profundidad antes de moverse hacia los nodos vecinos en el siguiente nivel de profundidad.
+En cada paso, el algoritmo expande el nodo más cercano al nodo raíz que aún no ha sido explorado y visita todos sus nodos adyacentes.
+Este proceso se repite hasta que se visitan todos los nodos alcanzables desde el nodo raíz.
+El recorrido BFS se implementa comúnmente utilizando una cola para rastrear los nodos visitados y por visitar, lo que garantiza que los nodos se visiten en el orden correcto de amplitud.
+---------------------------implentacion en java -------------------------------------------------------------------
+import java.util.*;
+
+public class Main {
+    private static class Grafo {
+        private int V; // NÃºmero de vÃ©rtices
+        private LinkedList<Integer>[] listaAdy; // Lista de adyacencia
+
+        // Constructor
+        public Grafo(int V) {
+            this.V = V;
+            listaAdy = new LinkedList[V];
+            for (int i = 0; i < V; ++i) {
+                listaAdy[i] = new LinkedList<>();
+            }
+        }
+
+        // Agregar una arista de v a w
+        public void agregarArista(int v, int w) {
+            listaAdy[v].add(w);
+        }
+
+        // Recorrido BFS comenzando desde el vÃ©rtice dado
+        public void BFS(int v) {
+            // Arreglo para marcar los nodos visitados
+            boolean[] visitado = new boolean[V];
+
+            // Cola para almacenar los nodos por visitar
+            LinkedList<Integer> cola = new LinkedList<>();
+
+            // Marcar el nodo actual como visitado y agregarlo a la cola
+            visitado[v] = true;
+            cola.add(v);
+
+            while (!cola.isEmpty()) {
+                // Sacar un nodo de la cola y mostrarlo
+                v = cola.poll();
+                System.out.print(v + " ");
+
+                // Obtener todos los nodos adyacentes al nodo sacado de la cola
+                Iterator<Integer> it = listaAdy[v].iterator();
+                while (it.hasNext()) {
+                    int n = it.next();
+                    // Si un nodo adyacente no ha sido visitado, marcarlo como visitado y agregarlo a la cola
+                    if (!visitado[n]) {
+                        visitado[n] = true;
+                        cola.add(n);
+                    }
+                }
+            }
+        }
+    }
+
+    // MÃ©todo main para probar la implementaciÃ³n
+    public static void main(String[] args) {
+        // Crear un grafo con 5 vÃ©rtices
+        Grafo grafo = new Grafo(5);
+        // Agregar algunas aristas al grafo
+        grafo.agregarArista(0, 1);
+        grafo.agregarArista(0, 4);
+        grafo.agregarArista(1, 2);
+        grafo.agregarArista(1, 3);
+        grafo.agregarArista(1, 4);
+        grafo.agregarArista(3, 2);
+        grafo.agregarArista(3, 4);
+
+        // Realizar el recorrido BFS comenzando desde el vÃ©rtice 0
+        System.out.println("Recorrido BFS del grafo comenzando desde el vÃ©rtice 0:");
+        grafo.BFS(0);
+    }
+}
+----------------------------------resultad----------------------------------------
+Recorrido BFS del grafo comenzando desde el vértice 0:
+0 1 4 2 3 
+
+...Program finished with exit code 0
+Press ENTER to exit console.
+
