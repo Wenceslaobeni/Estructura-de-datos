@@ -11,7 +11,7 @@ public class InterpolacionLineal {
         Scanner scanner = new Scanner(System.in);
 
         // Ingresar los puntos conocidos para la interpolación
-        System.out.println("Ingrese el valor d x0:");
+        System.out.println("Ingrese el valor de x0:");
         double x0 = scanner.nextDouble();
         System.out.println("Ingrese el valor de y0:");
         double y0 = scanner.nextDouble();
